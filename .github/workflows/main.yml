@@ -20,7 +20,7 @@ jobs:
           username: ec2-user
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            cd /home/ssm-user/app
+            cd /home/ec2-user/nodejs-rds-app
             git pull origin main
             npm install
             pm2 restart app || pm2 start app.js --name app
