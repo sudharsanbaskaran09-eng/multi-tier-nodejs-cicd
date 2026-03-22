@@ -1,0 +1,23 @@
+name: Deploy Node App
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Deploy to EC2
+      uses: appleboy/ssh-action@master
+      with:
+        host: 18.215.118.135
+        username: ssm-user
+        key: ${{ secrets.EC2_KEY }}
+        script: |
+          cd /home/ssm-user/app
+          git pull origin main
+          npm install
+          pm2 restart app
